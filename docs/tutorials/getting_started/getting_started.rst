@@ -59,7 +59,7 @@ Move into your workspace and pull the code from GitHub: ::
     git clone https://github.com/uni-agni/mujoco_ros_pkgs -b noetic-devel --depth 1
 
 
-.. waning:: MuJoCo ROS enables you to restart or (re)load models at runtime, which also resets the simulated time to 0. By default this is not fully supported by the ROS ecosystem and will result in e.g. action servers ignoring goals until the simulation time reaches the value of the reset (until this `PR`_ is merged)
+.. warning:: MuJoCo ROS enables you to restart or (re)load models at runtime, which also resets the simulated time to 0. By default this is not fully supported by the ROS ecosystem and will result in e.g. action servers ignoring goals until the simulation time reaches the value of the reset (until this `PR`_ is merged)
 
 To make action servers behave nicely with time resets, optionally add a forked actionlib version to your workspace: ::
 

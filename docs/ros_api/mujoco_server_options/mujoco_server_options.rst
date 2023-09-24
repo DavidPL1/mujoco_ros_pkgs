@@ -1,8 +1,5 @@
-Quickstart MuJoCo Server
-========================
-
 Launchfile Arguments Explained
-------------------------------
+========================
 
 use_sim_time
 """"""""""""
@@ -19,83 +16,109 @@ ns
 This parameter can be supplied optionally to start the MuJoCo ROS server node in a specific ROS namespace.
 
 
-console_config_file (= $(find mujoco_ros)/config/rosconsole.config)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+console_config_file
+"""""""""""""""""""
 
-This parameter can be used to specify a custom ROS console file. By default it load `this config<https://github.com/ubi-agni/mujoco_ros_pkgs/blob/noetic-devel/mujoco_ros/config/rosconsole.config>`_ which enables debug output for the mujoco_ros, mujoco_ros_control, and mujoco_ros_sensors namespaces.
+This parameter can be used to specify a custom ROS console file. By default it loads `this config <https://github.com/ubi-agni/mujoco_ros_pkgs/blob/noetic-devel/mujoco_ros/config/rosconsole.config>`_ which enables debug output for the mujoco_ros, mujoco_ros_control, and mujoco_ros_sensors namespaces.
 
-.. note:: This parameter only takes effect if ``verbose`` is enabled.
+**defaults to:** ``$(find mujoco_ros)/config/rosconsole.config``    
 
-verbose (= false)
-"""""""""""""""""
+.. attention:: This parameter only takes effect if ``verbose`` is enabled.
+
+verbose
+"""""""
 
 ``verbose`` toggles loading the configured ROS console configuration.
 
-unpause (= false)
-"""""""""""""""""
+**defaults to:** ``false``
+
+unpause
+"""""""
 
 Toggles whether the simulation should automatically start once it finished loading. In case you want to trigger the simulation to run from another ROS component or by the commandline, leave this parameter set to ``false``.
 
-headless (= false)
-""""""""""""""""""
+**defaults to:** ``false``
+
+
+headless
+""""""""
 
 If you want to run MuJoCo ROS headless, i.e., without rendering the GUI, set this parameter to ``true``. Disabling the GUI might increase simulation speed, depending on your setup.
 
-render_offscreen (= true)
-"""""""""""""""""""""""""
+**defaults to:** ``false``
+
+render_offscreen
+""""""""""""""""
 
 Cameras defined in the modelfile can be streamed out of the simulation over ROS using image transport. This requires offscreen rendering to be enabled. If this parameter is enabled, image transport and additional render and buffering resources will be allocated. If disabled, this step will be skipped upon loading.
 
-.. note:: Due to the cameras "on-demand" implementation, no offscreen rendering will take place if the image topics remain unsubscribed. Thus, if the topics remain unsubscribed, this will only reduce memory usage, but will have no impact on simulation speed.
+**defaults to:** ``true``
 
-no_x (= false)
-""""""""""""""
+.. hint:: Due to the cameras "on-demand" implementation, no offscreen rendering will take place if the image topics remain unsubscribed. Thus, if the topics remain unsubscribed, this will only reduce memory usage, but will have no impact on simulation speed.
+
+no_x
+""""
 
 This parameter is a shorthand to set ``headless:=true`` and ``render_offscreen:=false``, and will always take precedence over both the other parameters. This parameter additionally disables initializing GLFW, which is a useful option on headless server which don't have an X server available.
 
-admin_hash (= '')
-"""""""""""""""""
+**defaults to:** ``false``
+
+admin_hash
+""""""""""
 
 Use this parameter to set a password for critical simulation operation like changing model properties over ROS service calls. This parameter only takes effect if ``eval_mode`` is enabled. 
 
-eval_mode (= false)
-"""""""""""""""""""
+eval_mode
+"""""""""
 
-When 
+eval mode can be enabled to restrict access to certain features. For instance, when eval mode is disabled, the sensors plugin will create two topics for each sensor: one which adds configured noise and a second ground truth topic without noise. In eval mode, on the other hand, the ground truth data won't be published.
+Also critical operations like pausing the simulation are only performed if the supplied admin_hash field in the request matches the configured hash.
 
-wait_for_xml (= false)
-""""""""""""""""""""""
+**defaults to:** ``false``
+
+.. attention:: This requires ``admin_hash`` to be set. 
+
+wait_for_xml
+""""""""""""
 
 If you want to fetch and load a model from the parameter server instead of providing a the path to a modelfile, you can enable this parameter.
 
-realtime (= "")
-"""""""""""""""
+**defaults to:** ``false``
+
+realtime
+""""""""
 
 Set the desired realtime factor (between (0, 1]) to limit the simulation speed. E.g. ``.5`` will reduce simulation speed to 50% realtime. When this parameter is set to ``-1`` "unbound" mode is activated, i.e., the simulation will run as fast as possible. When left unset, the simulation defaults to a realtime factor of 1.
 
-.. note:: Interacting with the simulation through the GUI (pulling or rotating a body) in unbound execution mode might lead to much higher forces compared to bound execution mode.  
+.. attention:: Interacting with the simulation through the GUI (pulling or rotating a body) in unbound execution mode might lead to much higher forces compared to bound execution mode.  
 
-num_sim_steps (= -1)
-""""""""""""""""""""
+num_sim_steps
+"""""""""""""
 
 To automatically shutdown the simulation after N simulation steps set this parameter to N. -1 disables this option.
 
-mujoco_plugin_config (= "")
-"""""""""""""""""""""""""""
+**defaults to:** ``-1``
+
+mujoco_plugin_config
+""""""""""""""""""""
 
 Provide the path to a yaml file to load a custom set of plugins.
 
 
-modelfile (= $(find mujoco_ros)/assets/pendulum_world.xml)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+modelfile
+"""""""""
 
 Provide the path to a MuJoCo modelfile to load it in MuJoCo ROS.
 
+**defaults to:** ``$(find mujoco_ros)/assets/pendulum_world.xml``
 
-initial_joint_states (= $(find mujoco_ros)/config/initial_joint_states.yaml)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+initial_joint_states
+""""""""""""""""""""
 
 Provide the path to a yaml file containing joint positions and velocities to apply them on load or when the ``load_initial_joint_states`` service is called.
+
+**defaults to:** ``$(find mujoco_ros)/config/initial_joint_states.yaml``
 
 
 Developer Paramters
@@ -103,29 +126,37 @@ Developer Paramters
 
 These parameters are interesting to Developers of MuJoCo ROS or its plugins and can probably be ignored by standard users. 
 
-debug (= false)
-"""""""""""""""
+debug
+"""""
 
 When enabled, this runs the server prefixed with ``gdb --args`` to debug with gdb.
 
-debug_server (= false)
-""""""""""""""""""""""
+**defaults to:** ``false``
+
+debug_server
+""""""""""""
 
 When enabled this overrides the default debug mode starting gdb in the terminal you launch the launchfile from, and instead starts a gdb server at ``localhost:1234``.
 
-valgrind (= false)
-""""""""""""""""""
+**defaults to:** ``false``
+
+valgrind
+""""""""
 
 If enabled, launches the server prefixed with ``valgrind $(valgrind_args)``
 
-.. note:: This mode is not combinable with ``debug:=true``.
+**defaults to:** ``false``    
 
-valgrind_args = (= "")
-""""""""""""""""""""""
+.. attention:: This mode is not combinable with ``debug:=true``.
+
+valgrind_args
+"""""""""""""
 
 Set this parameter to supply additional valgrind arguments.
 
-profile (= true)
-""""""""""""""""
+profile
+"""""""
 
 Save profiling output to ``/tmp/profile.out``.
+
+**defaults to:** ``false``    

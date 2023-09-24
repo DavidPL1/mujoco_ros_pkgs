@@ -16,5 +16,6 @@ Table of Contents
    :maxdepth: 2
 
    tutorials/tutorials
+   ros_api/ros_api
    .. how_to_guides/how_to_guides
 
