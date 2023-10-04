@@ -11,14 +11,14 @@ MuJoCo currently mainly supports ROS Noetic running on a Ubuntu Focal (20.04) OS
 
 
 Once you have ROS installed, make sure you have the most up to date packages: ::
-    
+
     sudo rosdep init
     rosdep update
     sudo apt update
     sudo apt upgrade
 
 Install catkin commandline tools for configuration and building of workspaces: ::
-    
+
     sudo apt install python3-catkin-tools
 
 
@@ -63,7 +63,7 @@ Move into your workspace and pull the code from GitHub: ::
 
 To make action servers behave nicely with time resets, optionally add a forked actionlib version to your workspace: ::
 
-    cd ~/mujoco_ws/src    
+    cd ~/mujoco_ws/src
     git clone https://github.com/rhaschke/actionlib -b noetic-devel --depth 1
 
 The following command will install any package dependencies not already present in your workspace: ::

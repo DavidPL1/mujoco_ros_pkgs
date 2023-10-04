@@ -21,7 +21,7 @@ console_config_file
 
 This parameter can be used to specify a custom ROS console file. By default it loads `this config <https://github.com/ubi-agni/mujoco_ros_pkgs/blob/noetic-devel/mujoco_ros/config/rosconsole.config>`_ which enables debug output for the mujoco_ros, mujoco_ros_control, and mujoco_ros_sensors namespaces.
 
-**defaults to:** ``$(find mujoco_ros)/config/rosconsole.config``    
+**defaults to:** ``$(find mujoco_ros)/config/rosconsole.config``
 
 .. attention:: This parameter only takes effect if ``verbose`` is enabled.
 
@@ -66,7 +66,7 @@ This parameter is a shorthand to set ``headless:=true`` and ``render_offscreen:=
 admin_hash
 """"""""""
 
-Use this parameter to set a password for critical simulation operation like changing model properties over ROS service calls. This parameter only takes effect if ``eval_mode`` is enabled. 
+Use this parameter to set a password for critical simulation operation like changing model properties over ROS service calls. This parameter only takes effect if ``eval_mode`` is enabled.
 
 eval_mode
 """""""""
@@ -76,7 +76,7 @@ Also critical operations like pausing the simulation are only performed if the s
 
 **defaults to:** ``false``
 
-.. attention:: This requires ``admin_hash`` to be set. 
+.. attention:: This requires ``admin_hash`` to be set.
 
 wait_for_xml
 """"""""""""
@@ -90,7 +90,7 @@ realtime
 
 Set the desired realtime factor (between (0, 1]) to limit the simulation speed. E.g. ``.5`` will reduce simulation speed to 50% realtime. When this parameter is set to ``-1`` "unbound" mode is activated, i.e., the simulation will run as fast as possible. When left unset, the simulation defaults to a realtime factor of 1.
 
-.. attention:: Interacting with the simulation through the GUI (pulling or rotating a body) in unbound execution mode might lead to much higher forces compared to bound execution mode.  
+.. attention:: Interacting with the simulation through the GUI (pulling or rotating a body) in unbound execution mode might lead to much higher forces compared to bound execution mode.
 
 num_sim_steps
 """""""""""""
@@ -124,7 +124,7 @@ Provide the path to a yaml file containing joint positions and velocities to app
 Developer Paramters
 ^^^^^^^^^^^^^^^^^^^
 
-These parameters are interesting to Developers of MuJoCo ROS or its plugins and can probably be ignored by standard users. 
+These parameters are interesting to Developers of MuJoCo ROS or its plugins and can probably be ignored by standard users.
 
 debug
 """""
@@ -145,7 +145,7 @@ valgrind
 
 If enabled, launches the server prefixed with ``valgrind $(valgrind_args)``
 
-**defaults to:** ``false``    
+**defaults to:** ``false``
 
 .. attention:: This mode is not combinable with ``debug:=true``.
 
@@ -159,4 +159,4 @@ profile
 
 Save profiling output to ``/tmp/profile.out``.
 
-**defaults to:** ``false``    
+**defaults to:** ``false``
