@@ -45,7 +45,7 @@ find_package(catkin REQUIRED
     image_transport
     camera_info_manager
     sensor_msgs
-    moveit_ros_planning_interface
+    # moveit_ros_planning_interface
 )
 
 # cmake-format: off
@@ -107,7 +107,7 @@ catkin_package(
     image_transport
     camera_info_manager
     sensor_msgs
-    moveit_ros_planning_interface
+    # moveit_ros_planning_interface
   INCLUDE_DIRS
     include
     ${mujoco_INCLUDE_DIRS}
@@ -131,7 +131,7 @@ install(TARGETS ${PROJECT_NAME} mujoco_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 
-install(DIRECTORY launch
+install(DIRECTORY launch config assets
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 

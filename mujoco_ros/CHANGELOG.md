@@ -3,9 +3,18 @@
 
 ### Added
 * Manual steps now run as fast as possbile. I.e., if a viewer is connected, stepping is interrupted to render the UI at 30Hz. (This now also applies to running with unbound real-time, which previously was interrupted at 30Hz regardless if any viewer was connected).
+* Added GitHub Actions for building docker images, CI, and formatting based on MoveIt's configuration.
 
 ### Fixed
 * re-added setting realtime settings via ros param or in the mujoco model xml.
+* Add missing install of mujoco_ros's `config` and `assets` directories (#28).
+* Added missing example config for `mujoco_ros_sensors`.
+
+### Changed
+* Reduced sensor noise std in tests to reduce wrongful fails due to too stochasticity.
+* Updated toplevel README to be more informative.
+
+Contributors: @DavidPL1, @LeroyR
 
 <a name="0.7.0"></a>
 ## [0.7.0] - 2023-08-15
