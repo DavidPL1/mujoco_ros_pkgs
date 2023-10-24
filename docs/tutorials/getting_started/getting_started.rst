@@ -4,11 +4,14 @@ Gettings Started
 Here you will setup an example environment that you can utilize in the other tutorials.
 
 
-Install ROS Noetic
-^^^^^^^^^^^^^^^^^^
+Install ROS (Noetic or One)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-MuJoCo currently mainly supports ROS Noetic running on a Ubuntu Focal (20.04) OS. At this time we don't guarantee compatibility with other systems, though you still might be able to compile and run on a differing configuration.
+MuJoCo currently is supported for ROS Noetic running on Ubuntu Focal (20.04) and for ROS One running on Ubuntu Jammy (22.04). At this time we don't guarantee compatibility with other systems, though you still might be able to compile and run on a differing configuration.
 
+.. tip:: How to install ROS One on Jammy: https://ros.packages.techfak.net/
+
+.. hint:: We are working on a version supporting ROS 2!
 
 Once you have ROS installed, make sure you have the most up to date packages: ::
 
@@ -36,16 +39,19 @@ Source the base ROS distribution ::
 Configure the previously created directory to be a catkin workspace ::
 
     cd ~/mujoco_ws
-    catkin init
+    catkin init && catkin config --install
 
 Download a compatible MuJoCo release or clone the source repository with the corresponding tag. The current MuJoCo ROS build on our main branch ('noetic-devel') requires MuJoCo 2.3.6.
+
+.. attention::
+   if you are using colcon, don't run `catkin init`
 
 If you choose to build from source, clone and build MuJoCo with the following commands: ::
 
     git clone https://github.com/deepmind/mujoco $HOME/mujoco -b 2.3.6 --depth 1
     mkdir ~/mujoco/build
     cd ~/mujoco/build
-    cmake .. -DMUJOCO_BUILD_SIMULATE=OFF -DMUJOCO_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=$HOME/mujoco_ws/devel -DCMAKE_BUILD_TYPE=Release
+    cmake .. -DMUJOCO_BUILD_SIMULATE=OFF -DMUJOCO_BUILD_EXAMPLES=OFF -DCMAKE_INSTALL_PREFIX=$HOME/mujoco_ws/install -DCMAKE_BUILD_TYPE=Release
 
 .. note:: You can change the build type to `Debug` or `RelWithDebInfo` for debugging purposes.
 
@@ -72,13 +78,19 @@ The following command will install any package dependencies not already present 
     sudo apt update
     rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y
 
-Now that all dependencies are satisfied, we can move on an build the source code in the workspace: ::
+Now that all dependencies are satisfied, we can move on an build the source code in the workspace: 
+
+If you are using catkin, run ::
 
     catkin b
 
+Otherwise, for colcon run ::
+
+    colcon build
+
 Upon successful completion of the build, you should be able to source the built workspace and run a sample MuJoCo ROS server: ::
 
-    source ~/mujoco_ws/devel/setup.bash
+    source ~/mujoco_ws/install/setup.bash
      roslaunch mujoco_ros launch_server.launch use_sim_time:=true
 
 A window displaying the default testing simulation scene like below should now have opened
