@@ -69,6 +69,8 @@ configure_project_option(
 # Find MuJoCo
 find_package(mujoco 3.3.3 REQUIRED)
 
+message(WARNING " MuJoCo DIR: ${MUJOCO_DIR}/bin/mujoco_plugin")
+
 catkin_python_setup()
 
 # ###############################################
